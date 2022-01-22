@@ -1,0 +1,25 @@
+components:
+  schemas:
+    UserDto:
+      title: UserDto
+      type: object
+      properties:
+        id:
+          type: string
+        nickName:
+          type: string
+        password:
+          type: string
+        role:
+          type: array
+          items:
+            type: string
+    SessionDto:
+      title: SessionDto
+      type: object
+      properties:
+        isOk:
+          type: boolean
+        token:
+          type: string
+

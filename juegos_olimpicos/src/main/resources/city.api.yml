@@ -1,0 +1,211 @@
+city:
+  get:
+    tags:
+      - city
+    summary: Get cities
+    description: get all cities
+    operationId: getCities
+    responses:
+      200:
+        description: successful operation
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: 'city.model.yml#/components/schemas/CityDto'
+      404:
+        description: Not exists cities
+        content: { }
+      405:
+        description: Validation exception
+        content: { }
+    x-codegen-request-body-name: body
+  post:
+    tags:
+      - city
+    summary: Create city
+    description: Create city functionality
+    operationId: createCity
+    requestBody:
+      description: Created city object
+      content:
+        application/json:
+          schema:
+            $ref: 'city.model.yml#/components/schemas/CityDto'
+      required: true
+    responses:
+      200:
+        description: successful operation
+        content:
+          application/json:
+            schema:
+              $ref: 'city.model.yml#/components/schemas/CityDto'
+      400:
+        description: Invalid ID supplied
+        content: { }
+      404:
+        description: City not found
+        content: { }
+      405:
+        description: Validation exception
+        content: { }
+    x-codegen-request-body-name: body
+
+  put:
+    tags:
+      - city
+    summary: Updated city
+    description: This can only be done by the logged in city.
+    operationId: updateCity
+    requestBody:
+      description: CityDto object that needs to be updated
+      content:
+        application/json:
+          schema:
+            $ref: 'city.model.yml#/components/schemas/CityDto'
+      required: true
+    responses:
+      200:
+        description: successful operation
+        content:
+          application/json:
+            schema:
+              $ref: 'city.model.yml#/components/schemas/CityDto'
+      400:
+        description: Invalid city supplied
+        content: { }
+      404:
+        description: City not found
+        content: { }
+    x-codegen-request-body-name: body
+city-countHeadquarters:
+  get:
+    tags:
+      - city
+    summary: Get num headquarters
+    description: get num of city headquarters
+    operationId: getCountHeadquarters
+    parameters:
+      - name: cityId
+        in: path
+        description: 'The id that needs to be fetched. '
+        required: true
+        schema:
+          type: integer
+    responses:
+      200:
+        description: successful operation
+        content:
+          application/json:
+            schema:
+              type: integer
+              format: int32
+      404:
+        description: Not exists headquarters in the city
+        content: { }
+      405:
+        description: Validation exception
+        content: { }
+    x-codegen-request-body-name: body
+city-cityId:
+  get:
+    tags:
+      - city
+    summary: Get city by city id
+    operationId: getCityById
+    parameters:
+      - name: cityId
+        in: path
+        description: 'The id that needs to be fetched. '
+        required: true
+        schema:
+          type: integer
+    responses:
+      200:
+        description: successful operation
+        content:
+          application/json:
+            schema:
+              $ref: 'city.model.yml#/components/schemas/CityDto'
+      404:
+        description: City not found
+        content: { }
+  delete:
+    tags:
+      - city
+    summary: Delete city
+    description: This can only be done by the logged in city.
+    operationId: deleteCity
+    parameters:
+      - name: cityId
+        in: path
+        description: The id that needs to be deleted
+        required: true
+        schema:
+          type: integer
+    responses:
+      200:
+        description: operation successful
+        content: { }
+      400:
+        description: Invalid id supplied
+        content: { }
+      404:
+        description: City not found
+        content: { }
+findCityList:
+  get:
+    tags:
+      - city
+    summary: FindCityList
+    description: Search for cities,this search can be filtered and paginated
+    operationId: findCityList
+    parameters:
+      - name: filter
+        in: query
+        description: 'Number of items to skip before'
+        required: false
+        schema:
+          $ref: 'city.model.yml#/components/schemas/FindCityRequestDto'
+      - name: offsetParam
+        in: query
+        description: 'Number of items to skip before'
+        required: false
+        schema:
+          type: integer
+          format: int32
+          minimum: 0
+          default: 0
+      - name: limit
+        in: query
+        description: 'Maximum number of items to return, with max < 100 '
+        required: false
+        schema:
+          type: integer
+          format: int32
+          minimun: 1
+      - name: sortDirection
+        in: query
+        description: 'Sort order: * asc: Ascending, from A to Z \n desc: Descending, form Z to A '
+        required: false
+        schema:
+          type: string
+          enum: [asc, desc]
+          default: asc
+      - name: sortProperty
+        in: query
+        description: 'Attribute by which the results will be ordered'
+        required: false
+        schema:
+          type: string
+    responses:
+      200:
+        description: successful operation
+        content:
+          application/json:
+            schema:
+              $ref: 'city.model.yml#/components/schemas/FindCityResponseDto'
+      404:
+        description: City not found
+        content: { }

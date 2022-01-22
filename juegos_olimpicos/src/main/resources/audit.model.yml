@@ -1,0 +1,57 @@
+components:
+  schemas:
+    FindAuditResponseDto:
+      title: FindAuditResponseDto
+      type: object
+      discriminator:
+        propertyName: audits
+      properties:
+        audits: 
+          type: array
+          items:
+            $ref: '#/components/schemas/AuditDto'
+        pagination:
+          type: object
+          $ref: 'paged.model.yml#/PagedDto'
+
+    FindAuditRequestDto:
+      title: FindAuditRequestDto
+      type: object
+      properties:
+        user: 
+          type: string
+        entity:
+          type: string
+        lastModifiedDate:
+          type: string
+          format: date
+
+    AuditDto:
+      title: AuditDto
+      type: object
+      properties:
+        objectId:
+          type: string 
+        id:
+          type: object
+        entity:
+          type: string
+        action:
+          type: string
+        lastModifiedBy:
+          type: string
+        data:
+          type: object
+        lastModifiedDate:
+          type: string
+          format : date
+        previous:
+          type: string
+
+
+
+
+
+
+
+

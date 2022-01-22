@@ -1,0 +1,20 @@
+.clickable {
+  cursor: pointer;
+}
+
+.alineacion-derecha {
+  text-align: end;
+}
+
+.margin-bottom-1 {
+  margin-bottom: 1em;
+}
+
+.contenido {
+  margin-left: 10%;
+  margin-right: 10%;
+  margin-top: 5%;
+  margin-bottom: 10%;
+  width: auto;
+  height: 80%;
+}

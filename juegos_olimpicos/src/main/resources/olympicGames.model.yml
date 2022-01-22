@@ -1,0 +1,37 @@
+components:
+  schemas:
+    FindOlympicGamesResponseDto:
+      title: FindOlympicGamesResponseDto
+      type: object
+      discriminator:
+        propertyName: olympicGames
+      properties:
+        olympicGames:
+          type: array
+          items:
+            $ref: '#/components/schemas/OlympicGamesDto'
+        pagination:
+          type: object
+          $ref: 'paged.model.yml#/PagedDto'
+
+    OlympicGamesDto:
+      type: object
+      properties:
+        countryId:
+          type: integer
+          format: int32
+        countryName:
+          type: string
+        cityId:
+          type: integer
+          format: int32
+        cityName:
+          type: string
+        cityValue:
+          type: integer
+          format: int32
+        description:
+          type: string
+        countHeadquarters:
+          type: integer
+          format: int32

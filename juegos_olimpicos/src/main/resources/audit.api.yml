@@ -1,0 +1,101 @@
+audit:
+  get:
+    tags:
+      - audit
+    summary: Get all audits
+    description: get all audits
+    operationId: getAudits
+    responses:
+      200:
+        description: successful operation
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: 'audit.model.yml#/components/schemas/AuditDto'
+      404:
+        description: Not exists audits
+        content: { }
+      405:
+        description: Validation exception
+        content: { }
+    x-codegen-request-body-name: body
+findAuditList:
+  get:
+    tags:
+      - audit
+    summary: FindAuditList
+    description: Search for audits,this search can be filtered and paginated
+    operationId: findAuditList
+    parameters:
+      - name: filter
+        in: query
+        description: 'Number of items to skip before'
+        required: false
+        schema:
+          $ref: 'audit.model.yml#/components/schemas/FindAuditRequestDto'
+      - name: offsetParam
+        in: query
+        description: 'Number of items to skip before'
+        required: false
+        schema:
+          type: integer
+          format: int32
+          minimum: 0
+          default: 0
+      - name: limit
+        in: query
+        description: 'Maximum number of items to return, with max < 100 '
+        required: false
+        schema:
+          type: integer
+          format: int32
+          minimun: 1
+      - name: sortDirection
+        in: query
+        description: 'Sort order: * asc: Ascending, from A to Z \n desc: Descending, form Z to A '
+        required: false
+        schema:
+          type: string
+          enum: [asc, desc]
+          default: asc
+      - name: sortProperty
+        in: query
+        description: 'Attribute by which the results will be ordered'
+        required: false
+        schema:
+          type: string
+    responses:
+      200:
+        description: successful operation
+        content:
+          application/json:
+            schema:
+              $ref: 'audit.model.yml#/components/schemas/FindAuditResponseDto'
+      404:
+        description: Audit not found
+        content: { }
+diff-auditId:
+  get:
+    tags:
+      - audit
+    summary: Get diff between two audits
+    operationId: diff
+    parameters:
+      - in: path
+        name: _id
+        description: 'Object id of audit'
+        required: true
+        schema:
+          type: string
+    responses:
+      200:
+        description: successful operation
+        content:
+          application/json:
+            schema:
+              type: object
+      404:
+        description: Audit not found
+        content: { }

@@ -1,0 +1,216 @@
+country:
+  get:
+    tags:
+      - country
+    summary: Get countries
+    description: get all countries
+    operationId: getCountries
+    responses:
+      200:
+        description: successful operation
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: 'country.model.yml#/components/schemas/CountryDto'
+      404:
+        description: Not exists countries
+        content: { }
+      405:
+        description: Validation exception
+        content: { }
+    x-codegen-request-body-name: body
+  post:
+    tags:
+      - country
+    summary: Create country
+    description: Create country functionality
+    operationId: createCountry
+    requestBody:
+      description: Created country object
+      content:
+        application/json:
+          schema:
+            $ref: 'country.model.yml#/components/schemas/CountryDto'
+      required: true
+    responses:
+      200:
+        description: successful operation
+        content:
+          application/json:
+            schema:
+              $ref: 'country.model.yml#/components/schemas/CountryDto'
+      400:
+        description: Invalid ID supplied
+        content: { }
+      404:
+        description: Country not found
+        content: { }
+      405:
+        description: Validation exception
+        content: { }
+    x-codegen-request-body-name: body
+
+  put:
+    tags:
+      - country
+    summary: Updated country
+    description: This can only be done by the logged in country.
+    operationId: updateCountry
+    requestBody:
+      description: CountryDto object that needs to be updated
+      content:
+        application/json:
+          schema:
+            $ref: 'country.model.yml#/components/schemas/CountryDto'
+      required: true
+    responses:
+      200:
+        description: successful operation
+        content:
+          application/json:
+            schema:
+              $ref: 'country.model.yml#/components/schemas/CountryDto'
+      400:
+        description: Invalid country supplied
+        content: { }
+      404:
+        description: Country not found
+        content: { }
+    x-codegen-request-body-name: body
+country-cities-countryId:
+  get:
+    tags:
+      - country
+    summary: Get cities country
+    description: get all cities of the country
+    operationId: getCountryCities
+    parameters:
+      - name: countryId
+        in: path
+        description: 'The id that needs to be fetched. '
+        required: true
+        schema:
+          type: integer
+    responses:
+      200:
+        description: successful operation
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: 'city.model.yml#/components/schemas/CityDto'
+      404:
+        description: Not exists cities
+        content: { }
+      405:
+        description: Validation exception
+        content: { }
+    x-codegen-request-body-name: body
+country-countryId:
+  get:
+    tags:
+      - country
+    summary: Get country by country id
+    operationId: getCountryById
+    parameters:
+      - name: countryId
+        in: path
+        description: 'The id that needs to be fetched. '
+        required: true
+        schema:
+          type: integer
+    responses:
+      200:
+        description: successful operation
+        content:
+          application/json:
+            schema:
+              $ref: 'country.model.yml#/components/schemas/CountryDto'
+      404:
+        description: Country not found
+        content: { }
+  delete:
+    tags:
+      - country
+    summary: Delete country
+    description: This can only be done by the logged in country.
+    operationId: deleteCountry
+    parameters:
+      - name: countryId
+        in: path
+        description: The id that needs to be deleted
+        required: true
+        schema:
+          type: integer
+    responses:
+      200:
+        description: operation successful
+        content: { }
+      400:
+        description: Invalid id supplied
+        content: { }
+      404:
+        description: Country not found
+        content: { }
+findCountryList:
+  get:
+    tags:
+      - country
+    summary: FindCountryList
+    description: Search for countries,this search can be filtered and paginated
+    operationId: findCountryList
+    parameters:
+      - name: filter
+        in: query
+        description: 'Number of items to skip before'
+        required: false
+        schema:
+          $ref: 'country.model.yml#/components/schemas/FindCountryRequestDto'
+      - name: offsetParam
+        in: query
+        description: 'Number of items to skip before'
+        required: false
+        schema:
+          type: integer
+          format: int32
+          minimum: 0
+          default: 0
+      - name: limit
+        in: query
+        description: 'Maximum number of items to return, with max < 100 '
+        required: false
+        schema:
+          type: integer
+          format: int32
+          minimun: 1
+      - name: sortDirection
+        in: query
+        description: 'Sort order: * asc: Ascending, from A to Z \n desc: Descending, form Z to A '
+        required: false
+        schema:
+          type: string
+          enum: [asc, desc]
+          default: asc
+      - name: sortProperty
+        in: query
+        description: 'Attribute by which the results will be ordered'
+        required: false
+        schema:
+          type: string
+    responses:
+      200:
+        description: successful operation
+        content:
+          application/json:
+            schema:
+              $ref: 'country.model.yml#/components/schemas/FindCountryResponseDto'
+      404:
+        description: Country not found
+        content: { }
+
+
+
+

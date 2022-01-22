@@ -1,0 +1,162 @@
+openapi: 3.0.2
+info:
+  title: Olympic Games
+  description: "Simulating Olympic Games app web"
+  termsOfService: http://swagger.io/terms/
+  contact:
+    email: ncid@quindel.com
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 0.0.1-SNAPSHOT
+servers:
+  - url: http://localhost:8080 
+
+paths:
+  /country:
+    $ref: 'country.api.yml#/country'
+
+  /country/{countryId}:
+    $ref: 'country.api.yml#/country-countryId'
+
+  /country/country-cities{countryId}:
+    $ref: 'country.api.yml#/country-cities-countryId'
+
+  /country/findCountryList:
+    $ref: 'country.api.yml#/findCountryList'
+
+  /city:
+    $ref: 'city.api.yml#/city'
+
+  /city/{cityId}:
+    $ref: 'city.api.yml#/city-cityId'
+
+  /city/countHeadquarters{cityId}:
+    $ref: 'city.api.yml#/city-countHeadquarters'
+
+  /city/findCityList:
+    $ref: 'city.api.yml#/findCityList'
+
+  /headquarter:
+    $ref: 'headquarter.api.yml#/headquarter'
+
+  /headquarter/:
+    $ref: 'headquarter.api.yml#/headquarter-headquarterId'
+
+  /headquarter/olympicGames:
+    $ref: 'headquarter.api.yml#/headquarter-olympicGames'
+
+  /headquarter/findOlympicGamesList:
+    $ref: 'headquarter.api.yml#/findOlympicGames'
+
+  /headquarter/findHeadquarterList:
+    $ref: 'headquarter.api.yml#/findHeadquarterList'
+
+  /typeJjoo:
+    $ref: 'typeJjoo.api.yml#/typeJjoo'
+
+  /typeJjoo/{typeJjooId}:
+    $ref: 'typeJjoo.api.yml#/typeJjoo-typeJjooId'
+
+  /user/authenticate:
+    $ref: 'user.api.yml#/user'
+  /user/register:
+    $ref: 'user.api.yml#/register'
+  /user/updatePassword:
+    $ref: 'user.api.yml#/updatePassword'
+  /user/isAdmin:
+    $ref: 'user.api.yml#/user-isAdmin'
+    
+  /audit/:
+    $ref: 'audit.api.yml#/audit'
+
+  /audit/findAuditList:
+    $ref: 'audit.api.yml#/findAuditList'
+
+  /audit/diff/{_id}:
+    $ref: 'audit.api.yml#/diff-auditId'
+
+
+
+
+
+components:
+  schemas:
+    PagedDto:
+      $ref: 'paged.model.yml#/PagedDto'
+
+    CountryDto:
+      $ref: 'country.model.yml#/components/schemas/CountryDto'
+
+    FindCountryResponeDto:
+      $ref: 'country.model.yml#/components/schemas/FindCountryResponseDto'
+
+    FindCountryRequestDto:
+      $ref: 'country.model.yml#/components/schemas/FindCountryRequestDto'
+
+    CityDtoResponseDto:
+      $ref: 'city.model.yml#/components/schemas/CityDto'
+
+    FindCityResponseDto:
+      $ref: 'city.model.yml#/components/schemas/FindCityResponseDto'
+
+    FindCityRequestDto:
+      $ref: 'city.model.yml#/components/schemas/FindCityRequestDto'
+
+    HeadquarterDto:
+      $ref: 'headquarter.model.yml#/components/schemas/HeadquarterDto'
+
+    FindHeadquarter:
+      $ref: 'headquarter.model.yml#/components/schemas/FindHeadquarterResponseDto'
+
+    FindHeadquarterRequestDto:
+      $ref: 'headquarter.model.yml#/components/schemas/FindHeadquarterRequestDto'
+
+    TypeJjooDto:
+      $ref: 'typeJjoo.model.yml#/TypeJjooDto'
+
+    OlympicGamesDto:
+      $ref: 'olympicGames.model.yml#/components/schemas/OlympicGamesDto'
+
+    FindOlympicGamesResponseDto:
+      $ref: 'olympicGames.model.yml#/components/schemas/FindOlympicGamesResponseDto'
+
+    UserDto:
+      $ref: 'user.model.yml#/components/schemas/UserDto'
+    SessionDto:
+      $ref: 'user.model.yml#/components/schemas/UserDto'
+
+    AuditDto:
+      $ref: 'audit.model.yml#/components/schemas/AuditDto'
+
+    FindAuditResponseDto:
+      $ref: 'audit.model.yml#/components/schemas/FindAuditResponseDto'
+
+    FindAuditRequestDto:
+      $ref: 'audit.model.yml#/components/schemas/FindAuditRequestDto'
+
+    ErrorDto:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+        message:
+          type: string
+        date:
+          type : string
+          format: date-time
+
+  # securitySchemes:
+  #   reflectoring_auth:
+  #     type: oauth2
+  #     flows:
+  #       implicit:
+  #         authorizationUrl: http://reflectoring.swagger.io/oauth/dialog
+  #         scopes:
+  #           write:users: modify users
+  #           read:users: read users
+  #   api_key:
+  #     type: apiKey
+  #     name: api_key
+  #     in: header

@@ -1,0 +1,275 @@
+headquarter:
+  get:
+    tags:
+      - headquarter
+    summary: Get headquarters
+    description: get all headquarters
+    operationId: getHeadquarters
+    responses:
+      200:
+        description: successful operation
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: 'headquarter.model.yml#/components/schemas/HeadquarterDto'
+      404:
+        description: Not exists headquarters
+        content: { }
+      405:
+        description: Validation exception
+        content: { }
+    x-codegen-request-body-name: body
+  post:
+    tags:
+      - headquarter
+    summary: Create headquarter
+    description: Create headquarter functionality
+    operationId: createHeadquarter
+    requestBody:
+      description: Created headquarter object
+      content:
+        application/json:
+          schema:
+            $ref: 'headquarter.model.yml#/components/schemas/HeadquarterDto'
+      required: true
+    responses:
+      200:
+        description: successful operation
+        content:
+          application/json:
+            schema:
+              $ref: 'headquarter.model.yml#/components/schemas/HeadquarterDto'
+      400:
+        description: Invalid ID supplied
+        content: { }
+      404:
+        description: Headquarter not found
+        content: { }
+      405:
+        description: Validation exception
+        content: { }
+    x-codegen-request-body-name: body
+
+  put:
+    tags:
+      - headquarter
+    summary: Updated headquarter
+    description: This can only be done by the logged in headquarter.
+    operationId: updateHeadquarter
+    requestBody:
+      description: HeadquarterDto object that needs to be updated
+      content:
+        application/json:
+          schema:
+            $ref: 'headquarter.model.yml#/components/schemas/HeadquarterDto'
+      required: true
+    responses:
+      200:
+        description: successful operation
+        content:
+          application/json:
+            schema:
+              $ref: 'headquarter.model.yml#/components/schemas/HeadquarterDto'
+      400:
+        description: Invalid headquarter supplied
+        content: { }
+      404:
+        description: Headquarter not found
+        content: { }
+    x-codegen-request-body-name: body
+
+headquarter-olympicGames:
+  get:
+    tags:
+      - headquarter
+    summary: Get OlympicGames
+    description: get all info of the OlympicGames
+    operationId: getOlympicGames
+    responses:
+      200:
+        description: successful operation
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: 'olympicGames.model.yml#/components/schemas/OlympicGamesDto'
+      404:
+        description: Not exists olympicGames
+        content: { }
+      405:
+        description: Validation exception
+        content: { }
+    x-codegen-request-body-name: body
+findOlympicGames:
+  get:
+    tags:
+      - OlympicGames
+    summary: FindOlympicGames
+    description: Search for olympicgames,this search can be filtered and paginated
+    operationId: findOlympicGamesList
+    parameters:
+      - name: offsetParam
+        in: query
+        description: 'Number of items to skip before'
+        required: false
+        schema:
+          type: integer
+          format: int32
+          minimum: 0
+          default: 0
+      - name: limit
+        in: query
+        description: 'Maximum number of items to return, with max < 100 '
+        required: false
+        schema:
+          type: integer
+          format: int32
+          minimun: 1
+      - name: sortDirection
+        in: query
+        description: 'Sort order: * asc: Ascending, from A to Z \n desc: Descending, form Z to A '
+        required: false
+        schema:
+          type: string
+          enum: [ asc, desc ]
+          default: asc
+      - name: sortProperty
+        in: query
+        description: 'Attribute by which the results will be ordered'
+        required: false
+        schema:
+          type: string
+    responses:
+      200:
+        description: successful operation
+        content:
+          application/json:
+            schema:
+              $ref: 'olympicGames.model.yml#/components/schemas/FindOlympicGamesResponseDto'
+      404:
+        description: Not exists olympicGames
+        content: { }
+      405:
+        description: Validation exception
+        content: { }
+    x-codegen-request-body-name: body
+
+headquarter-headquarterId:
+  get:
+    tags:
+      - headquarter
+    summary: Get headquarter by headquarter id
+    operationId: getHeadquarterById
+    parameters:
+      - in: query
+        name: year
+        description: 'The year of the headquarter'
+        required: true
+        schema:
+          type: integer
+      - in: query
+        name: typeId
+        description: 'The id that needs to be fetched. '
+        required: true
+        schema:
+          type: integer
+
+    responses:
+      200:
+        description: successful operation
+        content:
+          application/json:
+            schema:
+              $ref: 'headquarter.model.yml#/components/schemas/HeadquarterDto'
+      404:
+        description: Headquarter not found
+        content: { }
+  delete:
+    tags:
+      - headquarter
+    summary: Delete headquarter
+    description: This can only be done by the logged in headquarter.
+    operationId: deleteHeadquarter
+    parameters:
+      - name: year
+        in: query
+        description: 'The year of the headquarter'
+        required: true
+        schema:
+          type: integer
+
+      - name: typeId
+        in: query
+        description: 'The id of the type'
+        required: true
+        schema:
+          type: integer
+    responses:
+      200:
+        description: operation successful
+        content: { }
+      400:
+        description: Invalid id supplied
+        content: { }
+      404:
+        description: Headquarter not found
+        content: { }
+
+findHeadquarterList:
+  get:
+    tags:
+      - headquarter
+    summary: FindHeadquarterList
+    description: Search for headquarters,this search can be filtered and paginated
+    operationId: findHeadquarterList
+    parameters:
+      - name: filter
+        in: query
+        description: 'Number of items to skip before'
+        required: false
+        schema:
+          $ref: 'headquarter.model.yml#/components/schemas/FindHeadquarterRequestDto'
+      - name: offsetParam
+        in: query
+        description: 'Number of items to skip before'
+        required: false
+        schema:
+          type: integer
+          format: int32
+          minimum: 0
+          default: 0
+      - name: limit
+        in: query
+        description: 'Maximum number of items to return, with max < 100 '
+        required: false
+        schema:
+          type: integer
+          format: int32
+          minimun: 1
+      - name: sortDirection
+        in: query
+        description: 'Sort order: * asc: Ascending, from A to Z \n desc: Descending, form Z to A '
+        required: false
+        schema:
+          type: string
+          enum: [asc, desc]
+          default: asc
+      - name: sortProperty
+        in: query
+        description: 'Attribute by which the results will be ordered'
+        required: false
+        schema:
+          type: string
+    responses:
+      200:
+        description: successful operation
+        content:
+          application/json:
+            schema:
+              $ref: 'headquarter.model.yml#/components/schemas/FindHeadquarterResponseDto'
+      404:
+        description: Headquarter not found
+        content: { }

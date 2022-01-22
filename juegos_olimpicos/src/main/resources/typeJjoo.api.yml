@@ -1,0 +1,69 @@
+typeJjoo:
+  get:
+    tags:
+      - typeJjoo
+    summary: Get typesJjoo
+    description: get all typesJjoo
+    operationId: getTypesJjoo
+    responses:
+      200:
+        description: successful operation
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: 'typeJjoo.model.yml#/TypeJjooDto'
+      404:
+        description: Not exists typesJjoo
+        content: { }
+      405:
+        description: Validation exception
+        content: { }
+    x-codegen-request-body-name: body
+typeJjoo-typeJjooId:
+  get:
+    tags:
+      - typeJjoo
+    summary: Get typeJjoo by typeJjoo id
+    operationId: getTypeJjooById
+    parameters:
+      - name: typeJjooId
+        in: path
+        description: 'The id that needs to be fetched. '
+        required: true
+        schema:
+          type: integer
+    responses:
+      200:
+        description: successful operation
+        content:
+          application/json:
+            schema:
+              $ref: 'typeJjoo.model.yml#/TypeJjooDto'
+      404:
+        description: TypeJjoo not found
+        content: { }
+  delete:
+    tags:
+      - typeJjoo
+    summary: Delete typeJjoo
+    description: This can only be done by the logged in typeJjoo.
+    operationId: deleteTypeJjoo
+    parameters:
+      - name: typeJjooId
+        in: path
+        description: The id that needs to be deleted
+        required: true
+        schema:
+          type: integer
+    responses:
+      200:
+        description: operation successful
+        content: { }
+      400:
+        description: Invalid id supplied
+        content: { }
+      404:
+        description: TypeJjoo not found
+        content: { }

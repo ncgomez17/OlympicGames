@@ -1,0 +1,43 @@
+components:
+  schemas:
+    FindHeadquarterResponseDto:
+      title: FindHeadquarterResponseDto
+      type: object
+      discriminator:
+        propertyName: headquarters
+      properties:
+        headquarters:
+          type: array
+          items:
+            $ref: '#/components/schemas/HeadquarterDto'
+        pagination:
+          type: object
+          $ref: 'paged.model.yml#/PagedDto'
+
+    FindHeadquarterRequestDto:
+      title: FindHeadquarterRequestDto
+      type: object
+      discriminator:
+        propertyName: id
+      properties:
+        year:
+          type: integer
+          format: int32
+        cityName:
+          type: string
+
+    HeadquarterDto:
+      type: object
+      properties:
+        id:
+          $ref: '#/components/schemas/HeadquarterId'
+        city:
+          $ref: 'city.model.yml#/components/schemas/CityDto'
+    HeadquarterId:
+      type: object
+      properties:
+        year:
+          type: integer
+          format: int32
+        type:
+          $ref: 'typeJjoo.model.yml#/TypeJjooDto'

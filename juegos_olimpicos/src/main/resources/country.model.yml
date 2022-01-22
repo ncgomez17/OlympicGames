@@ -1,0 +1,48 @@
+components:
+  schemas:
+    FindCountryResponseDto:
+      title: FindCountryResponseDto
+      type: object
+      discriminator:
+        propertyName: countries
+      properties:
+        countries:
+          type: array
+          items:
+            $ref: '#/components/schemas/CountryDto'
+        pagination:
+          type: object
+          $ref: 'paged.model.yml#/PagedDto'
+
+    FindCountryRequestDto:
+      title: FindCountryRequestDto
+      type: object
+      discriminator:
+        propertyName: id
+      properties:
+        id:
+          type: integer
+          format: int32
+        name:
+          type: string
+        CityId:
+          type: integer
+          format: int32
+
+    CountryDto:
+      title:  CountryDto
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        name:
+          type: string
+        code:
+          type: string
+        value:
+          type: integer
+          format: int32
+
+
+
