@@ -12,6 +12,8 @@ Spring boot Project with React components created on Qindel Group.It is a test a
 - Spring AOP
 - Spring Security and JWT
 - Spring MongoDB
+- QueryDSL
+- Mapstruct
 - OpenAPI 3.0
 - React Hooks
 - React functional components
